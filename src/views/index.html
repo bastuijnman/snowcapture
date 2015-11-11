@@ -5,14 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bootstrap 101 Template</title>
+    <title>SnowCapture</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <div class="container-fluid">
+        <h1>SnowCapture <a href="#" class="btn btn-default" data-toggle="modal" target="#add-modal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></h1>
+        <% _.each(captures, function (capture) { %>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Panel title</h3>
+                </div>
+                <div class="panel-body">
+                    Panel content
+                </div>
+            </div>
+        <% }); %>
+    </div>
+    <div class="modal fade" id="add-modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" action="/add">
+                    <div class="modal-header"><h4 class="modal-title">Add</h4></div>
+                    <div class="modal-body">
 
+                    </div>
+                    <div class="modal-footer"><button type="submit" class="btn btn-primary">Save</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
   </body>
 </html>
