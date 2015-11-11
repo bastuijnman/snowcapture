@@ -10,8 +10,7 @@
     app.use(express.static('./public'));
 
     app.get('/', function (req, res) {
-        capture('http://portal.live-panorama.com/webcam_schmitten_schmitten2_hd.jpg');
-        res.send('ok');
+        res.sendfile('./src/views/index.html');
     });
 
     server = app.listen(3000, function () {

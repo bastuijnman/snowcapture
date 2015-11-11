@@ -12,6 +12,6 @@
   "dependencies": {
     "express": "^4.13.3",
     "fluent-ffmpeg": "^2.0.1",
-    "lowdb": "^0.10.2"
+    "lowdb": "^0.10.2",
   }
 }
