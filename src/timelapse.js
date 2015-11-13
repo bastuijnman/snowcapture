@@ -1,11 +1,19 @@
 'use strict';
 
-module.exports = function () {
+module.exports = function (checksum, fps, duration) {
 
-    let ffmpeg = require('fluent-ffmpeg');
+    return new Promise(function (fulfill, reject) {
 
-    ffmpeg()
-        .addInput('./capture/*.jpg')
-        .output('./tmp/lapse.mp4');
+        let ffmpeg = require('fluent-ffmpeg');
 
+        ffmpeg()
+            .addInput('./capture/' + checksum + '/frame-%010d.jpg')
+            .output('./tmp/lapse.mp4')
+            .inputFps(fps)
+            .on('end', function () {
+                fulfill();
+            })
+            .run();
+
+    });
 };

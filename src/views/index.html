@@ -12,32 +12,64 @@
   </head>
   <body>
     <div class="container-fluid">
-        <h1>SnowCapture <a href="#" class="btn btn-default" data-toggle="modal" target="#add-modal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></h1>
+        <h1>SnowCapture <a href="#add-modal" class="btn btn-default" data-toggle="modal" target="#add-modal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></h1>
         <% _.each(captures, function (capture) { %>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Panel title</h3>
+                    <h3 class="panel-title"><%= capture.name %></h3>
                 </div>
                 <div class="panel-body">
-                    Panel content
+                    <a href="#timelapse-modal" data-toggle="modal" target="#timelapse-modal" data-checksum="<%= capture.checksum %>">Download timelapse</a>
                 </div>
             </div>
         <% }); %>
     </div>
+
     <div class="modal fade" id="add-modal" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form method="POST" action="/add">
                     <div class="modal-header"><h4 class="modal-title">Add</h4></div>
                     <div class="modal-body">
-
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="url" name="url">
+                        </div>
                     </div>
                     <div class="modal-footer"><button type="submit" class="btn btn-primary">Save</button></div>
                 </form>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="timelapse-modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" action="" id="timelapse-form">
+                    <div class="modal-header"><h4 class="modal-title">Add</h4></div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="fps" name="fps">
+                        </div>
+                    </div>
+                    <div class="modal-footer"><button type="submit" class="btn btn-primary">Save</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+    <script>
+        (function () {
+            $('#timelapse-modal').on('show.bs.modal', function (evnt) {
+                var link = $(evnt.relatedTarget);
+                $('#timelapse-form').attr('action', '/timelapse/' + link.data('checksum'));
+            });
+        }());
+    </script>
   </body>
 </html>
