@@ -8,7 +8,6 @@ getMaxFrameNumber = function (dir) {
     return new Promise(function (fulfill, reject) {
         fs.readdir(dir, function (err, files) {
             if (err !== null) {
-                console.log(err);
                 reject(err);
             } else {
                 files = files.map(function (item) {
