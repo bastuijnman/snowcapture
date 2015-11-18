@@ -18,7 +18,7 @@ module.exports = function () {
     // Schedule new jobs
     for (let i = 0; i < max; i++) {
         schedule = schedules[i];
-        scheduler.scheduleJob('* ' + schedule.hour + ' * * *', function () {
+        scheduler.scheduleJob(schedule.minute + ' ' + schedule.hour + ' * * *', function () {
             capture(this.url, this.checksum);
         }.bind(schedule));
     }

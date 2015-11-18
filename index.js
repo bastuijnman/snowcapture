@@ -57,17 +57,27 @@
     app.post('/add', function (req, res) {
         let name = req.body.name,
             url = req.body.url,
-            time = req.body.time;
+            hour = req.body.hour,
+            minute = req.body.minute;
 
         db('captures').push({
             name: name,
             url: url,
             checksum: checksum(name + url),
-            hour: time
+            hour: hour,
+            minute: minute
         });
 
         runJobs();
 
+        res.redirect('/');
+    });
+
+    app.get(/^\/remove\/(.*)$/, function (req, res) {
+        db('captures').remove({
+            checksum: req.params[0]
+        });
+        runJobs();
         res.redirect('/');
     });
 
