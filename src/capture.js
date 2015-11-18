@@ -39,8 +39,12 @@ module.exports = function (url, path) {
         captureDir,
         file;
 
-    captureDir = fs.statSync('./capture');
-    if (!captureDir || !captureDir.isDirectory()) {
+    try {
+        captureDir = fs.statSync('./capture');
+        if (!captureDir || !captureDir.isDirectory()) {
+            fs.mkdirSync('./capture');
+        }
+    } catch (e) {
         fs.mkdirSync('./capture');
     }
 
