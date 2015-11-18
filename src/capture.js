@@ -36,9 +36,14 @@ module.exports = function (url, path) {
 
     let dir = './capture/' + path,
         http = require('http'),
+        captureDir,
         file;
 
-    fs.mkdirSync('./capture');
+    captureDir = fs.statSync('./capture');
+    if (!captureDir || !captureDir.isDirectory()) {
+        fs.mkdirSync('./capture');
+    }
+
     fs.stat('./capture/' + path, function (err, stat) {
         if (!stat || !stat.isDirectory()) {
             fs.mkdirSync('./capture/' + path);
