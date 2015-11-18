@@ -5,7 +5,9 @@
         express = require('express'),
         consolidate = require('consolidate'),
         lowdb = require('lowdb'),
-        db = lowdb('./db.json'),
+        db = lowdb('db.json', {
+            async: false
+        }),
         app = express(),
         bodyParser = require('body-parser'),
         crypto = require('crypto'),
@@ -54,18 +56,22 @@
 
     app.post('/add', function (req, res) {
         let name = req.body.name,
-            url = req.body.url;
+            url = req.body.url,
+            time = req.body.time;
 
         db('captures').push({
             name: name,
             url: url,
-            checksum: checksum(name + url)
+            checksum: checksum(name + url),
+            hour: time
         });
+
+        runJobs();
 
         res.redirect('/');
     });
 
-    server = app.listen(3000, function () {
+    server = app.listen(process.env.EXPRESS_PORT || 3000, function () {
         runJobs();
     });
 

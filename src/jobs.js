@@ -3,7 +3,7 @@
 module.exports = function () {
     let capture = require('./capture'),
         lowdb = require('lowdb'),
-        db = lowdb('./db.json'),
+        db = lowdb('db.json'),
         scheduler = require('node-schedule'),
         schedules = db('captures').cloneDeep(),
         max = schedules.length,
@@ -18,8 +18,8 @@ module.exports = function () {
     // Schedule new jobs
     for (let i = 0; i < max; i++) {
         schedule = schedules[i];
-
-        scheduler.scheduleJob('*/10 * * * * *', function () {
+        console.log(schedule);
+        scheduler.scheduleJob('* ' + schedule.hour + ' * * *', function () {
             capture(this.url, this.checksum);
         }.bind(schedule));
     }
